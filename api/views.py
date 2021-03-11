@@ -31,3 +31,4 @@ def example_view(request, id=0):
             return JsonResponse(ExampleSerializer(row).data,status=status.HTTP_201_CREATED)
 
         return HttpResponse({'Bad Request': 'Invalid data...'}, status=status.HTTP_400_BAD_REQUEST)
+
