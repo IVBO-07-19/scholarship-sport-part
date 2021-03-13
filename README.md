@@ -1,3 +1,6 @@
+#### Установка зависимостей
+> pip install -r requirements.txt
+
 # Sport part of the scholarship backend project #
 
 ### Описание функционала сервиса ###
