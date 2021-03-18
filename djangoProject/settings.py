@@ -9,8 +9,9 @@ https://docs.djangoproject.com/en/3.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.1/ref/settings/
 """
-
+import os
 from pathlib import Path
+import dj_database_url
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -24,7 +25,9 @@ SECRET_KEY = 's+9-v^xa3)&&e^r2=8c=sn93e**kmk$q0s4+tq2cgldu3ozz*$'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 # Application definition
 
@@ -74,14 +77,15 @@ WSGI_APPLICATION = 'djangoProject.wsgi.application'
 
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'SportDB',
-        'USER': 'postgres',
-        'PASSWORD': 'adminka',
-        'HOST': '127.0.0.1',
-        'PORT': '5432'
-    }
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.postgresql_psycopg2',
+    #     'NAME': 'SportDB',
+    #     'USER': 'postgres',
+    #     'PASSWORD': 'adminka',
+    #     'HOST': '127.0.0.1',
+    #     'PORT': '5432'
+    # }
+    'default': dj_database_url.config()
 }
 
 # Password validation
