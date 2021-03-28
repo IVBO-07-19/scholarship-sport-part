@@ -1,35 +1,68 @@
+# Scholarship project. Sport part
 ## Heroku-service
 * https://young-basin-37598.herokuapp.com
 
-### API Endpoints
-#### * Events
- "**api/sport/global_event/**"
+## API Endpoints
+###  Events
+* **api/sport/\*event_type\*/** - [GET, POST] - получение всех обьектов модели/добавление обьекта
+* **api/sports/\*event_type\*/id/** [PATCH, GET, DELETE] - редактирование, получение по id, удаление по id
 
-* "**api/sport/global_event/**" [GET, POST] - получение всех обьектов модели/добавление обьекта
-* "**api/sports/global_event/<int:pk>/**" [PATCH, GET, DELETE] - редактирование, получение по id(pk), удаление по id(pk)
+>GET response - object or list of objects  
+POST response - added object  
+PATCH response - modified object  
+DELETE response - None
 
+### Event types
+* #### global_event - Приложение №5, таблица 1
+> * name - [String] - название мероприятия  
+> * level - [String] - уровень мероприятия (международное, всеросийское, ведомственное, региональное)  
+> * degree - [String] - степень участия (индивидуальное, командное)
+> * place - [Integer] - занятое место
+> * date - [DateTime] - дата мероприятия (дд.мм.гггг)
+> * points - [Integer] - количество очков за мероприятие
 
+URL: https://young-basin-37598.herokuapp.com/api/sport/global_event/
 
+* #### trp - Приложение №5, таблица 2
+> * trp_badge - [Boolean] - наличие золотого знака ГТО
+> * date - [DateTime] - дата мероприятия (дд.мм.гггг)
+> * age_group - [Integer] - возраcтная группа [1..11]
+> * points - [Integer] - количество очков за мероприятие 
 
-* "**api/sport/global_event/**" - Для GET,POST запросов для Таблицы 1: "В течение 1-го года получение награды.."
-* "**api/sports/global_event/<int:pk>/**"- Для PATCH, DELETE(по id), GET(по id) для Таблицы 1:  "В течение 1-го года получение награды.."
-* "**api/sports/trp/**" - Для GET,POST запросов для Таблицы 2: "Выполнение нормативов золотого знака отличия..."
-* "**api/sports/trp/<int:pk>/**" - Для PATCH, DELETE(по id), GET(по id) для Таблицы 2: "Выполнение нормативов золотого знака отличия..."
-* "**api/sports/national/**" - Для GET,POST запросов для Таблицы 3: "Участие в мероприятиях В СОСТАВЕ..."
-* "**api/sports/national/<int:pk>/**" - Для PATCH, DELETE(по id), GET(по id) для Таблицы 3: "Участие в мероприятиях В СОСТАВЕ..."
-* "**api/sports/not_national/**" - Для GET,POST запросов для Таблицы 4: "Участие в мероприятиях НЕ В СОСТАВЕ..."
-* "**api/sports/not_national/<int:pk>/**" - Для PATCH, DELETE(по id), GET(по id) для Таблицы 4: "Участие в мероприятиях НЕ В СОСТАВЕ..."
-* "**api/sports/online_event/**" - Для GET,POST запросов для Таблицы 5:"Участие в онлайн мероприятиях"
-* "**api/sports/online_event/<int:pk>/**" - Для PATCH, DELETE(по id), GET(по id) для Таблицы 5: "Участие в онлайн мероприятиях"
+URL: https://young-basin-37598.herokuapp.com/api/sport/trp/
 
-### Инструкция по запуску приложения
+* #### national - Приложение №5, таблица 3.1 
+> * name - [String] - название мероприятия   
+> * degree - [String] - степень участия (индивидуальное, командное)
+> * place - [Integer] - занятое место
+> * date - [DateTime] - дата мероприятия (дд.мм.гггг)
+> * points - [Integer] - количество очков за мероприятие
 
+URL: https://young-basin-37598.herokuapp.com/api/sport/national/
 
-#### Установка зависимостей
-> pip install -r requirements.txt
+* #### not_national - Приложение №5, таблица 3.2
+> * name - [String] - название мероприятия  
+> * level - [String] - уровень мероприятия (международное, всеросийское, ведомственное, региональное)  
+> * degree - [String] - степень участия (индивидуальное, командное)
+> * place - [Integer] - занятое место
+> * date - [DateTime] - дата мероприятия (дд.мм.гггг)
+> * points - [Integer] - количество очков за мероприятие
+
+URL: https://young-basin-37598.herokuapp.com/api/sport/not_national/
+
+* #### online_event - Приложение №5, таблица 3.3
+> * name - [String] - название мероприятия  
+> * date - [DateTime] - дата мероприятия (дд.мм.гггг)
+> * points - [Integer] - количество очков за мероприятие
  
+URL: https://young-basin-37598.herokuapp.com/api/sport/online_event/
 
-# Sport part of the scholarship backend project #
+## Launch
+### Installing dependencies
+    pip install -r requirements.txt
+### Running application
+    python manage.py runserver <port>
+
 
 ### Описание функционала сервиса ###
 
