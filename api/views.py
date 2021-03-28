@@ -23,3 +23,31 @@ class TRPBadgeDetail(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = TRPBadgeSerializer
 
 
+class NationalPartList(generics.ListCreateAPIView):
+    queryset = NationalPart.objects.all()
+    serializer_class = NationalPartSerializer
+
+
+class NationalPartDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = NationalPart.objects.all()
+    serializer_class = NationalPartSerializer
+
+
+class NotNationalPartList(generics.ListCreateAPIView):
+    queryset = NotNationalPart.objects.all()
+    serializer_class = NotNationalPartSerializer
+
+
+class NotNationalPartDetail(generics.ListCreateAPIView):
+    queryset = NotNationalPart.objects.all()
+    serializer_class = NotNationalPartSerializer
+
+
+class OnlineDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Online.objects.all()
+    serializer_class = OnlineSerializer
+
+
+class OnlineList(generics.ListCreateAPIView):
+    queryset = Online.objects.all()
+    serializer_class = OnlineSerializer

@@ -27,7 +27,7 @@ class NationalPart(models.Model):
     points = models.IntegerField()
 
 
-class Table4(models.Model):
+class NotNationalPart(models.Model):
     name = models.CharField(max_length=200)
     level = models.CharField(max_length=30)
     degree = models.CharField(max_length=30)
@@ -35,7 +35,7 @@ class Table4(models.Model):
     points = models.IntegerField()
 
 
-class Table5(models.Model):
+class Online(models.Model):
     name = models.CharField(max_length=200)
     date = models.DateField()
     points = models.IntegerField()
