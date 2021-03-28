@@ -1,5 +1,8 @@
-#### Установка зависимостей
+### Инструкция по подготовке проекта к запуску:
+* Установка зависимостей
 > pip install -r requirements.txt
+* 
+
 
 # Sport part of the scholarship backend project #
 
