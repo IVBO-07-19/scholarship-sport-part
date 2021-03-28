@@ -1,14 +1,15 @@
 ### Маршруты
-> "api/sport/global_event/" - Для GET,POST запросов для Таблицы 1: "В течение 1-го года получение награды.."/n
-> "api/sports/global_event/<int:pk>/"- Для PATCH, DELETE(по id), GET(по id) для Таблицы 1:  "В течение 1-го года получение награды.."
-> "api/sports/trp/" - Для GET,POST запросов для Таблицы 2: "Выполнение нормативов золотого знака отличия..."
-> "api/sports/trp/<int:pk>/" - Для PATCH, DELETE(по id), GET(по id) для Таблицы 2: "Выполнение нормативов золотого знака отличия..."
-> "api/sports/national/" - Для GET,POST запросов для Таблицы 3: "Участие в мероприятиях В СОСТАВЕ..."
-> "api/sports/national/<int:pk>/" - Для PATCH, DELETE(по id), GET(по id) для Таблицы 3: "Участие в мероприятиях В СОСТАВЕ..."
-> "api/sports/not_national/" - Для GET,POST запросов для Таблицы 4: "Участие в мероприятиях НЕ В СОСТАВЕ..."
-> "api/sports/not_national/<int:pk>" - Для PATCH, DELETE(по id), GET(по id) для Таблицы 4: "Участие в мероприятиях НЕ В СОСТАВЕ..."
-> "api/sports/online_event/" - Для GET,POST запросов для Таблицы 5:"Участие в онлайн мероприятиях"
-> "api/sports/online_event/<int:pk>" - Для PATCH, DELETE(по id), GET(по id) для Таблицы 5: "Участие в онлайн мероприятиях"
+* "api/sport/global_event/" - Для GET,POST запросов для Таблицы 1: "В течение 1-го года получение награды.."
+* "api/sports/global_event/<int:pk>/"- Для PATCH, DELETE(по id), GET(по id) для Таблицы 1:  "В течение 1-го года получение награды.."
+* "api/sports/trp/" - Для GET,POST запросов для Таблицы 2: "Выполнение нормативов золотого знака отличия..."
+* "api/sports/trp/<int:pk>/" - Для PATCH, DELETE(по id), GET(по id) для Таблицы 2: "Выполнение нормативов золотого знака отличия..."
+* "api/sports/national/" - Для GET,POST запросов для Таблицы 3: "Участие в мероприятиях В СОСТАВЕ..."
+* "api/sports/national/<int:pk>/" - Для PATCH, DELETE(по id), GET(по id) для Таблицы 3: "Участие в мероприятиях В СОСТАВЕ..."
+* "api/sports/not_national/" - Для GET,POST запросов для Таблицы 4: "Участие в мероприятиях НЕ В СОСТАВЕ..."
+* "api/sports/not_national/<int:pk>" - Для PATCH, DELETE(по id), GET(по id) для Таблицы 4: "Участие в мероприятиях НЕ В СОСТАВЕ..."
+* "api/sports/online_event/" - Для GET,POST запросов для Таблицы 5:"Участие в онлайн мероприятиях"
+* "api/sports/online_event/<int:pk>" - Для PATCH, DELETE(по id), GET(по id) для Таблицы 5: "Участие в онлайн мероприятиях"
+
 #### Установка зависимостей
 > pip install -r requirements.txt
  
