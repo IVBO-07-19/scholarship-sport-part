@@ -1,5 +1,5 @@
 ### Маршруты
-> "api/sport/global_event/" - Для GET,POST запросов для Таблицы 1: "В течение 1-го года получение награды.."
+> "api/sport/global_event/" - Для GET,POST запросов для Таблицы 1: "В течение 1-го года получение награды.."/n
 > "api/sports/global_event/<int:pk>/"- Для PATCH, DELETE(по id), GET(по id) для Таблицы 1:  "В течение 1-го года получение награды.."
 > "api/sports/trp/" - Для GET,POST запросов для Таблицы 2: "Выполнение нормативов золотого знака отличия..."
 > "api/sports/trp/<int:pk>/" - Для PATCH, DELETE(по id), GET(по id) для Таблицы 2: "Выполнение нормативов золотого знака отличия..."
@@ -11,7 +11,7 @@
 > "api/sports/online_event/<int:pk>" - Для PATCH, DELETE(по id), GET(по id) для Таблицы 5: "Участие в онлайн мероприятиях"
 #### Установка зависимостей
 > pip install -r requirements.txt
-> 
+ 
 
 # Sport part of the scholarship backend project #
 
