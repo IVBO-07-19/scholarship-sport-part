@@ -1,9 +1,33 @@
-#### Маршруты
->"api/sport/global_event/" - Таблица 1: "В течение 1-го года получение награды за деятельность 
-в  рамках  спортивных  международных,  всероссийских,  ведомственных, региональных мероприятий, проводимых Университетом или иной организацией"
+## Heroku-service
+* https://young-basin-37598.herokuapp.com
+
+### API Endpoints
+#### * Events
+ "**api/sport/global_event/**"
+
+* "**api/sport/global_event/**" [GET, POST] - получение всех обьектов модели/добавление обьекта
+* "**api/sports/global_event/<int:pk>/**" [PATCH, GET, DELETE] - редактирование, получение по id(pk), удаление по id(pk)
+
+
+
+
+* "**api/sport/global_event/**" - Для GET,POST запросов для Таблицы 1: "В течение 1-го года получение награды.."
+* "**api/sports/global_event/<int:pk>/**"- Для PATCH, DELETE(по id), GET(по id) для Таблицы 1:  "В течение 1-го года получение награды.."
+* "**api/sports/trp/**" - Для GET,POST запросов для Таблицы 2: "Выполнение нормативов золотого знака отличия..."
+* "**api/sports/trp/<int:pk>/**" - Для PATCH, DELETE(по id), GET(по id) для Таблицы 2: "Выполнение нормативов золотого знака отличия..."
+* "**api/sports/national/**" - Для GET,POST запросов для Таблицы 3: "Участие в мероприятиях В СОСТАВЕ..."
+* "**api/sports/national/<int:pk>/**" - Для PATCH, DELETE(по id), GET(по id) для Таблицы 3: "Участие в мероприятиях В СОСТАВЕ..."
+* "**api/sports/not_national/**" - Для GET,POST запросов для Таблицы 4: "Участие в мероприятиях НЕ В СОСТАВЕ..."
+* "**api/sports/not_national/<int:pk>/**" - Для PATCH, DELETE(по id), GET(по id) для Таблицы 4: "Участие в мероприятиях НЕ В СОСТАВЕ..."
+* "**api/sports/online_event/**" - Для GET,POST запросов для Таблицы 5:"Участие в онлайн мероприятиях"
+* "**api/sports/online_event/<int:pk>/**" - Для PATCH, DELETE(по id), GET(по id) для Таблицы 5: "Участие в онлайн мероприятиях"
+
+### Инструкция по запуску приложения
+
+
 #### Установка зависимостей
 > pip install -r requirements.txt
-> 
+ 
 
 # Sport part of the scholarship backend project #
 
@@ -15,3 +39,5 @@
 
 * Django REST 
 * PostgreSQL
+* Heroku
+
