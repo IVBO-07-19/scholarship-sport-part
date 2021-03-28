@@ -1,3 +1,6 @@
+## Heroku-сервис
+* https://young-basin-37598.herokuapp.com
+
 ### Маршруты
 * "**api/sport/global_event/**" - Для GET,POST запросов для Таблицы 1: "В течение 1-го года получение награды.."
 * "**api/sports/global_event/<int:pk>/**"- Для PATCH, DELETE(по id), GET(по id) для Таблицы 1:  "В течение 1-го года получение награды.."
