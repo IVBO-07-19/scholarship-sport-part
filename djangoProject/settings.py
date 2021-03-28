@@ -12,6 +12,9 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 import os
 from pathlib import Path
 import dj_database_url
+import dotenv
+
+dotenv.read_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -20,6 +23,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
+
 SECRET_KEY = 's+9-v^xa3)&&e^r2=8c=sn93e**kmk$q0s4+tq2cgldu3ozz*$'
 
 # SECURITY WARNING: don't run with debug turned on in production!
@@ -28,6 +32,8 @@ DEBUG = True
 ALLOWED_HOSTS = ['*']
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
+
 
 # Application definition
 
@@ -38,7 +44,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'api.apps.ApiConfig'
+    'api.apps.ApiConfig',
+    'rest_framework'
 ]
 
 MIDDLEWARE = [
@@ -77,16 +84,20 @@ WSGI_APPLICATION = 'djangoProject.wsgi.application'
 
 
 DATABASES = {
-    # 'default': {
-    #     'ENGINE': 'django.db.backends.postgresql_psycopg2',
-    #     'NAME': 'SportDB',
-    #     'USER': 'postgres',
-    #     'PASSWORD': 'adminka',
-    #     'HOST': '127.0.0.1',
-    #     'PORT': '5432'
-    # }
-    'default': dj_database_url.config()
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'SportDB',
+        'USER': 'postgres',
+        'PASSWORD': 'adminka',
+        'HOST': '127.0.0.1',
+        'PORT': '5432'
+    }
 }
+
+print(os.environ.get('DATABASE_URL'))
+if os.environ.get('DATABASE_URL'):
+    db_from_env = dj_database_url.config()
+    DATABASES['default'].update(db_from_env)
 
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators

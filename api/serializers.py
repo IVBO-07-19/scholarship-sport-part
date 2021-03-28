@@ -2,13 +2,7 @@ from rest_framework import serializers
 from .models import *
 
 
-class ExampleSerializer(serializers.ModelSerializer):
+class GlobalEventSerializer(serializers.ModelSerializer):
     class Meta:
-        model = ExampleModel
-        fields = '__all__'
-
-
-class Table1Serializer(serializers.ModelSerializer):
-    class Meta:
-        model = Table1
+        model = GlobalEvent
         fields = '__all__'
