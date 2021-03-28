@@ -10,6 +10,9 @@
 * "**api/sports/online_event/**" - Для GET,POST запросов для Таблицы 5:"Участие в онлайн мероприятиях"
 * "**api/sports/online_event/<int:pk>/**" - Для PATCH, DELETE(по id), GET(по id) для Таблицы 5: "Участие в онлайн мероприятиях"
 
+###Инструкция по запуску приложения
+
+
 #### Установка зависимостей
 > pip install -r requirements.txt
  
@@ -24,3 +27,5 @@
 
 * Django REST 
 * PostgreSQL
+* Heroku
+
