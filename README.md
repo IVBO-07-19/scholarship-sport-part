@@ -1,7 +1,16 @@
-## Heroku-сервис
+## Heroku-service
 * https://young-basin-37598.herokuapp.com
 
-### Маршруты
+### API Endpoints
+#### * Events
+ "**api/sport/global_event/**"
+
+* "**api/sport/global_event/**" [GET, POST] - получение всех обьектов модели/добавление обьекта
+* "**api/sports/global_event/<int:pk>/**" [PATCH, GET, DELETE] - редактирование, получение по id(pk), удаление по id(pk)
+
+
+
+
 * "**api/sport/global_event/**" - Для GET,POST запросов для Таблицы 1: "В течение 1-го года получение награды.."
 * "**api/sports/global_event/<int:pk>/**"- Для PATCH, DELETE(по id), GET(по id) для Таблицы 1:  "В течение 1-го года получение награды.."
 * "**api/sports/trp/**" - Для GET,POST запросов для Таблицы 2: "Выполнение нормативов золотого знака отличия..."
