@@ -58,9 +58,18 @@ URL: https://young-basin-37598.herokuapp.com/api/sport/not_national/
 URL: https://young-basin-37598.herokuapp.com/api/sport/online_event/
 
 ## Launch
-### Installing dependencies
+###  Installing dependencies
     pip install -r requirements.txt
-### Running application
+###  Install PostgreSQL
+### Create Postgres database
+* #### Coming soon
+### Configure database
+    set DATABASE_URL=<your_database_url>
+Example:  
+
+    set DATABASE_URL=postgres://<username>:<password>@localhost:5432/<database_name>
+
+#### Running application
     python manage.py runserver <port>
 
 
