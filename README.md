@@ -2,6 +2,9 @@
 ## Heroku-service
 * https://young-basin-37598.herokuapp.com
 
+## Ngrok-service
+* http://65ac626e08ac.ngrok.io
+
 ## API Endpoints
 ###  Events
 * **api/sport/\*event_type\*/** - [GET, POST] - получение всех обьектов модели/добавление обьекта
