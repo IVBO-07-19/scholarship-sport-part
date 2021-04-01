@@ -60,6 +60,8 @@ URL: https://young-basin-37598.herokuapp.com/api/sport/online_event/
 ## Launch
 ### Installing dependencies
     pip install -r requirements.txt
+### Database configuration
+    Coming soon
 ### Running application
     python manage.py runserver <port>
 
