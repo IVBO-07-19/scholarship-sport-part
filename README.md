@@ -3,7 +3,7 @@
 * https://young-basin-37598.herokuapp.com
 
 ## Ngrok-service
-* http://65ac626e08ac.ngrok.io
+* http://0be750be2a83.ngrok.io
 
 ## API Endpoints
 ###  Events
