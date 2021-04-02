@@ -2,3 +2,5 @@ venv
 djangoProject/.env
 .idea
 ngrok.exe
+api/__pycache__
+djangoProject/__pycache__
