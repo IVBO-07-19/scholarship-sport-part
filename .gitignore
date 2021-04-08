@@ -4,4 +4,4 @@ djangoProject/.env
 ngrok.exe
 api/__pycache__
 djangoProject/__pycache__
-.env
+api/migrations/__pycache__
