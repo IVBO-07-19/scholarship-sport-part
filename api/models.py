@@ -27,15 +27,14 @@ def age_group_validator(age_group):
         )
 
 
-# Create your models here.
-
+# Models
 
 class GlobalEvent(models.Model):
     name = models.CharField(max_length=200)
     level = models.CharField(max_length=30, validators=[level_validator])
     degree = models.CharField(max_length=30, validators=[degree_validator])
     place = models.IntegerField()
-    date = models.CharField(max_length=100)
+    date = models.DateField()
     points = models.IntegerField()
 
 
