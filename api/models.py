@@ -27,8 +27,6 @@ def age_group_validator(age_group):
         )
 
 
-# Models
-
 class GlobalEvent(models.Model):
     name = models.CharField(max_length=200)
     level = models.CharField(max_length=30, validators=[level_validator])
