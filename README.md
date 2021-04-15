@@ -3,6 +3,9 @@
 * https://young-basin-37598.herokuapp.com
 
 ## API Endpoints
+
+![Models](https://github.com/IVBO-07-19/scholarship-sport-part/blob/main/DB_scheme.png?raw=true)
+
 ###  Events
 * **api/sport/\*event_type\*/** - [GET, POST] - получение всех обьектов модели/добавление обьекта
 * **api/sports/\*event_type\*/id/** [PATCH, GET, DELETE] - редактирование, получение по id, удаление по id
