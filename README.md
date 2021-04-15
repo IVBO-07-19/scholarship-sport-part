@@ -14,6 +14,7 @@ DELETE response - None
 
 ### Event types
 * #### global_event - Приложение №5, таблица 1
+> * userID - [String] - идентификатор пользователя
 > * name - [String] - название мероприятия  
 > * level - [String] - уровень мероприятия (международное, всеросийское, ведомственное, региональное)  
 > * degree - [String] - степень участия (индивидуальное, командное)
@@ -24,6 +25,7 @@ DELETE response - None
 URL: https://young-basin-37598.herokuapp.com/api/sport/global_event/
 
 * #### trp - Приложение №5, таблица 2
+> * userID - [String] - идентификатор пользователя
 > * trp_badge - [Boolean] - наличие золотого знака ГТО
 > * date - [DateTime] - дата мероприятия (дд.мм.гггг)
 > * age_group - [Integer] - возраcтная группа [1..11]
@@ -32,6 +34,7 @@ URL: https://young-basin-37598.herokuapp.com/api/sport/global_event/
 URL: https://young-basin-37598.herokuapp.com/api/sport/trp/
 
 * #### national - Приложение №5, таблица 3.1 
+> * userID - [String] - идентификатор пользователя
 > * name - [String] - название мероприятия   
 > * degree - [String] - степень участия (индивидуальное, командное)
 > * place - [Integer] - занятое место
@@ -41,6 +44,7 @@ URL: https://young-basin-37598.herokuapp.com/api/sport/trp/
 URL: https://young-basin-37598.herokuapp.com/api/sport/national/
 
 * #### not_national - Приложение №5, таблица 3.2
+> * userID - [String] - идентификатор пользователя
 > * name - [String] - название мероприятия  
 > * level - [String] - уровень мероприятия (международное, всеросийское, ведомственное, региональное)  
 > * degree - [String] - степень участия (индивидуальное, командное)
@@ -51,6 +55,7 @@ URL: https://young-basin-37598.herokuapp.com/api/sport/national/
 URL: https://young-basin-37598.herokuapp.com/api/sport/not_national/
 
 * #### online_event - Приложение №5, таблица 3.3
+> * userID - [String] - идентификатор пользователя
 > * name - [String] - название мероприятия  
 > * date - [DateTime] - дата мероприятия (дд.мм.гггг)
 > * points - [Integer] - количество очков за мероприятие
