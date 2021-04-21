@@ -45,7 +45,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'api.apps.ApiConfig',
-    'rest_framework'
+    'rest_framework',
+    'social_django'
 ]
 
 MIDDLEWARE = [
@@ -134,3 +135,18 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
+SOCIAL_AUTH_TRATLING_SLASH = False
+SOCIAL_AUTH_AUTH0_KEY = 'N2PbkBOXaofo3Ms0cLtmJFDqIxZgqtnr'
+SOCIAL_AUTH_AUTH0_SECRET = 'UCHJIVv8y7dkPcXvprdZng51IuTyhpoEJMLlDHCerHwkzgNF_KXA8j6PAXQj9M3x'
+SOCIAL_AUTH_AUTH0_SCOPE = [
+    'openid',
+    'email'
+]
+
+AUTHENTICATION_BACKENDS = {
+    'api.auth_backend.Auth0',
+    'django.contrib.auth.backends.ModelBackend'
+}
+
+LOGIN_URL = '/login/auth0'
+LOGIN_REDIRECT_URL = '/dashboard'
