@@ -140,6 +140,7 @@ SOCIAL_AUTH_AUTH0_KEY = 'N2PbkBOXaofo3Ms0cLtmJFDqIxZgqtnr'
 SOCIAL_AUTH_AUTH0_SECRET = 'UCHJIVv8y7dkPcXvprdZng51IuTyhpoEJMLlDHCerHwkzgNF_KXA8j6PAXQj9M3x'
 SOCIAL_AUTH_AUTH0_SCOPE = [
     'openid',
+    'profile',
     'email'
 ]
 

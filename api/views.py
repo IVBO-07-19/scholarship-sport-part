@@ -66,42 +66,49 @@ class TRPBadgeList(generics.ListCreateAPIView):
 
 
 class TRPBadgeDetail(generics.RetrieveUpdateDestroyAPIView):
+    permission_classes = (IsAuthenticated,)
     http_method_names = ['get', 'patch', 'delete']
     queryset = TRPBadge.objects.all()
     serializer_class = TRPBadgeSerializer
 
 
 class NationalPartList(generics.ListCreateAPIView):
+    permission_classes = (IsAuthenticated,)
     http_method_names = ['get', 'post']
     queryset = NationalPart.objects.all()
     serializer_class = NationalPartSerializer
 
 
 class NationalPartDetail(generics.RetrieveUpdateDestroyAPIView):
+    permission_classes = (IsAuthenticated,)
     http_method_names = ['get', 'patch', 'delete']
     queryset = NationalPart.objects.all()
     serializer_class = NationalPartSerializer
 
 
 class NotNationalPartList(generics.ListCreateAPIView):
+    permission_classes = (IsAuthenticated,)
     http_method_names = ['get', 'post']
     queryset = NotNationalPart.objects.all()
     serializer_class = NotNationalPartSerializer
 
 
 class NotNationalPartDetail(generics.ListCreateAPIView):
+    permission_classes = (IsAuthenticated,)
     http_method_names = ['get', 'post']
     queryset = NotNationalPart.objects.all()
     serializer_class = NotNationalPartSerializer
 
 
 class OnlineDetail(generics.RetrieveUpdateDestroyAPIView):
+    permission_classes = (IsAuthenticated,)
     http_method_names = ['get', 'patch', 'delete']
     queryset = Online.objects.all()
     serializer_class = OnlineSerializer
 
 
 class OnlineList(generics.ListCreateAPIView):
+    permission_classes = (IsAuthenticated,)
     http_method_names = ['get', 'patch', 'delete']
     queryset = Online.objects.all()
     serializer_class = OnlineSerializer
