@@ -3,7 +3,7 @@ from rest_framework.urlpatterns import format_suffix_patterns
 from .views import *
 
 urlpatterns = [
-    path('global_event/', login_required(GlobalEventList.as_view())),
+    path('global_event/', GlobalEventList.as_view()),
     path('global_event/<int:pk>', GlobalEventDetail.as_view()),
 
     path('trp/', TRPBadgeList.as_view()),
@@ -18,8 +18,6 @@ urlpatterns = [
     path('online_event/', OnlineList.as_view()),
     path('online_event/<int:pk>', OnlineDetail.as_view()),
 
-    path('', include('django.contrib.auth.urls')),
-    path('', include('social_django.urls', namespace='social'))
 
 ]
 
