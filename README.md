@@ -90,4 +90,6 @@ Example:
 * Django REST 
 * PostgreSQL
 * Heroku
+* Auth0
+* JWT
 
