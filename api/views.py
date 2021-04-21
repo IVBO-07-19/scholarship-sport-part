@@ -1,10 +1,14 @@
+from django.contrib.auth.decorators import login_required
+
 from .serializers import *
 from .models import *
 from rest_framework import generics
 from rest_framework.decorators import api_view
 
+from django.shortcuts import render, redirect
 
 class GlobalEventList(generics.ListCreateAPIView):
+
     http_method_names = ['get', 'post']
     queryset = GlobalEvent.objects.all()
     serializer_class = GlobalEventSerializer
