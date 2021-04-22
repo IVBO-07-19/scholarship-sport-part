@@ -87,12 +87,12 @@ WSGI_APPLICATION = 'djangoProject.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'SportDB',
-        'USER': 'postgres',
-        'PASSWORD': 'adminka',
-        'HOST': '127.0.0.1',
-        'PORT': '5432'
+        # 'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        # 'NAME': 'SportDB',
+        # 'USER': 'postgres',
+        # 'PASSWORD': 'adminka',
+        # 'HOST': '127.0.0.1',
+        # 'PORT': '5432'
     }
 }
 
@@ -136,8 +136,8 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 SOCIAL_AUTH_TRATLING_SLASH = False
-SOCIAL_AUTH_AUTH0_KEY = 'N2PbkBOXaofo3Ms0cLtmJFDqIxZgqtnr'
-SOCIAL_AUTH_AUTH0_SECRET = 'UCHJIVv8y7dkPcXvprdZng51IuTyhpoEJMLlDHCerHwkzgNF_KXA8j6PAXQj9M3x'
+SOCIAL_AUTH_AUTH0_KEY = os.environ.get("SOCIAL_AUTH_AUTH0_KEY")
+SOCIAL_AUTH_AUTH0_SECRET = os.environ.get("SOCIAL_AUTH_AUTH0_SECRET")
 SOCIAL_AUTH_AUTH0_SCOPE = [
     'openid',
     'profile',
@@ -162,8 +162,8 @@ JWT_AUTH = {
     'JWT_DECODE_HANDLER':
         'api.utils.jwt_decode_token',
     'JWT_ALGORITHM': 'RS256',
-    'JWT_AUDIENCE': 'https://scholarship/api/sport',
-    'JWT_ISSUER': 'https://niccko.eu.auth0.com/',
+    'JWT_AUDIENCE': os.environ.get('JWT_AUDIENCE'),
+    'JWT_ISSUER': os.environ.get('JWT_ISSUER'),
     'JWT_AUTH_HEADER_PREFIX': 'Bearer',
 }
 
