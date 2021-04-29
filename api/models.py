@@ -28,7 +28,8 @@ def age_group_validator(age_group):
 
 
 class GlobalEvent(models.Model):
-    userID = models.CharField(max_length=64)
+    requestID = models.CharField(max_length=64, default=0)
+    userID = models.CharField(max_length=64, blank=False)
     name = models.CharField(max_length=200)
     level = models.CharField(max_length=30, validators=[level_validator])
     degree = models.CharField(max_length=30, validators=[degree_validator])
@@ -38,7 +39,8 @@ class GlobalEvent(models.Model):
 
 
 class TRPBadge(models.Model):
-    userID = models.CharField(max_length=64)
+    requestID = models.CharField(max_length=64, default=0)
+    userID = models.CharField(max_length=64, blank=False)
     trp_badge = models.BooleanField()
     date = models.DateField()
     age_group = models.IntegerField(validators=[age_group_validator])
@@ -46,7 +48,8 @@ class TRPBadge(models.Model):
 
 
 class NationalPart(models.Model):
-    userID = models.CharField(max_length=64)
+    requestID = models.CharField(max_length=64, default=0)
+    userID = models.CharField(max_length=64, blank=False)
     name = models.CharField(max_length=200)
     degree = models.CharField(max_length=30)
     date = models.DateField()
@@ -54,7 +57,8 @@ class NationalPart(models.Model):
 
 
 class NotNationalPart(models.Model):
-    userID = models.CharField(max_length=64)
+    requestID = models.CharField(max_length=64, default=0)
+    userID = models.CharField(max_length=64, blank=False)
     name = models.CharField(max_length=200)
     level = models.CharField(max_length=30, validators=[level_validator])
     degree = models.CharField(max_length=30,validators=[degree_validator])
@@ -63,7 +67,8 @@ class NotNationalPart(models.Model):
 
 
 class Online(models.Model):
-    userID = models.CharField(max_length=64)
+    requestID = models.CharField(max_length=64, default=0)
+    userID = models.CharField(max_length=64, blank=False)
     name = models.CharField(max_length=200)
     date = models.DateField()
     points = models.IntegerField()

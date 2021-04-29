@@ -1,20 +1,18 @@
-from django.contrib.auth.decorators import login_required
-from rest_framework.decorators import permission_classes
+from .utils import jwt_get_username_from_payload_handler
 from .serializers import *
 from .models import *
 from rest_framework import generics
 from rest_framework.permissions import IsAuthenticated
-from rest_framework.permissions import AllowAny
-from rest_framework.permissions import IsAuthenticated
 from functools import wraps
 import jwt
+from .utils import *
 
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponse
+
+service_URL = 'https://secure-gorge-99048.herokuapp.com/api/'
 
 
 def get_token_auth_header(request):
-    """Obtains the Access Token from the Authorization Header
-    """
     auth = request.META.get("HTTP_AUTHORIZATION", None)
     parts = auth.split()
     token = parts[1]
@@ -23,11 +21,6 @@ def get_token_auth_header(request):
 
 
 def requires_scope(required_scope):
-    """Determines if the required scope is present in the Access Token
-    Args:
-        required_scope (str): The scope required to access the resource
-    """
-
     def require_scope(f):
         @wraps(f)
         def decorated(*args, **kwargs):
@@ -52,6 +45,15 @@ class GlobalEventList(generics.ListCreateAPIView):
     queryset = GlobalEvent.objects.all()
     serializer_class = GlobalEventSerializer
 
+    def post(self, request, *args, **kwargs):
+        token = get_token_auth_header(request)
+        user_id = jwt_decode_token(token).get('sub')
+        data = GlobalEventSerializer(request.data).data
+        request_id = data.get('requestID')
+        head = {'Authorization': f'Bearer {token}'}
+        req_status = requests.get(url=service_URL + f'get/{request_id}', headers=head).content
+        return HttpResponse(req_status)
+
 
 class GlobalEventDetail(generics.RetrieveUpdateDestroyAPIView):
     http_method_names = ['get', 'patch', 'delete']
@@ -64,51 +66,74 @@ class TRPBadgeList(generics.ListCreateAPIView):
     queryset = TRPBadge.objects.all()
     serializer_class = TRPBadgeSerializer
 
+    def post(self, request, *args, **kwargs):
+        user_id = jwt_decode_token(get_token_auth_header(request)).get('sub')
+        data = GlobalEventSerializer(request.data).data
+        request_id = data.get('request_id')
+
+        return JsonResponse(request_id, safe=False)
+
 
 class TRPBadgeDetail(generics.RetrieveUpdateDestroyAPIView):
-    permission_classes = (IsAuthenticated,)
     http_method_names = ['get', 'patch', 'delete']
     queryset = TRPBadge.objects.all()
     serializer_class = TRPBadgeSerializer
 
+    def patch(self, request, *args, **kwargs):
+        pass
+
 
 class NationalPartList(generics.ListCreateAPIView):
-    permission_classes = (IsAuthenticated,)
     http_method_names = ['get', 'post']
     queryset = NationalPart.objects.all()
     serializer_class = NationalPartSerializer
 
+    def post(self, request, *args, **kwargs):
+        user_id = jwt_decode_token(get_token_auth_header(request)).get('sub')
+        data = GlobalEventSerializer(request.data).data
+        request_id = data.get('request_id')
+        return JsonResponse(request_id, safe=False)
+
 
 class NationalPartDetail(generics.RetrieveUpdateDestroyAPIView):
-    permission_classes = (IsAuthenticated,)
     http_method_names = ['get', 'patch', 'delete']
     queryset = NationalPart.objects.all()
     serializer_class = NationalPartSerializer
 
 
 class NotNationalPartList(generics.ListCreateAPIView):
-    permission_classes = (IsAuthenticated,)
     http_method_names = ['get', 'post']
     queryset = NotNationalPart.objects.all()
     serializer_class = NotNationalPartSerializer
 
+    def post(self, request, *args, **kwargs):
+        user_id = jwt_decode_token(get_token_auth_header(request)).get('sub')
+        data = GlobalEventSerializer(request.data).data
+        request_id = data.get('request_id')
+
+        return JsonResponse(request_id, safe=False)
+
 
 class NotNationalPartDetail(generics.ListCreateAPIView):
-    permission_classes = (IsAuthenticated,)
     http_method_names = ['get', 'post']
     queryset = NotNationalPart.objects.all()
     serializer_class = NotNationalPartSerializer
 
 
 class OnlineDetail(generics.RetrieveUpdateDestroyAPIView):
-    permission_classes = (IsAuthenticated,)
     http_method_names = ['get', 'patch', 'delete']
     queryset = Online.objects.all()
     serializer_class = OnlineSerializer
 
 
 class OnlineList(generics.ListCreateAPIView):
-    permission_classes = (IsAuthenticated,)
     http_method_names = ['get', 'patch', 'delete']
     queryset = Online.objects.all()
     serializer_class = OnlineSerializer
+
+    def post(self, request, *args, **kwargs):
+        user_id = jwt_decode_token(get_token_auth_header(request)).get('sub')
+        data = GlobalEventSerializer(request.data).data
+        request_id = data.get('request_id')
+
+        return JsonResponse(request_id, safe=False)
