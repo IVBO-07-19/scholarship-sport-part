@@ -1,8 +1,13 @@
+import os
+
+import dotenv
 from django.contrib.auth import authenticate
 import json
 import jwt
 import requests
 import docx
+
+dotenv.read_dotenv()
 
 def jwt_get_username_from_payload_handler(payload):
     username = payload.get('sub').replace('|', '.')
@@ -12,7 +17,7 @@ def jwt_get_username_from_payload_handler(payload):
 
 def jwt_decode_token(token):
     header = jwt.get_unverified_header(token)
-    jwks = requests.get('https://{}/.well-known/jwks.json'.format('niccko.eu.auth0.com')).json()
+    jwks = requests.get('https://{}/.well-known/jwks.json'.format(os.environ.get('JWT_ISSUER'))).json()
     public_key = None
     for jwk in jwks['keys']:
         if jwk['kid'] == header['kid']:
@@ -21,8 +26,8 @@ def jwt_decode_token(token):
     if public_key is None:
         raise Exception('Public key not found.')
 
-    issuer = 'https://{}/'.format('niccko.eu.auth0.com')
-    return jwt.decode(token, public_key, audience='https://scholarship/api/sport', issuer=issuer, algorithms=['RS256'])
+    issuer = 'https://{}/'.format(os.environ.get('JWT_ISSUER'))
+    return jwt.decode(token, public_key, audience=os.environ.get('JWT_AUDIENCE'), issuer=issuer, algorithms=['RS256'])
 
 def create_table(data):
     document = docx.Document()
