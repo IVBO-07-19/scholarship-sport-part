@@ -1,10 +1,7 @@
-from .utils import jwt_get_username_from_payload_handler
 from .serializers import *
 from .models import *
 from rest_framework import generics, status
-from rest_framework.permissions import IsAuthenticated
 from functools import wraps
-import json
 from .utils import *
 
 from django.http import JsonResponse, HttpResponse
@@ -122,11 +119,6 @@ class GlobalEventDetail(generics.RetrieveUpdateDestroyAPIView):
         return change(request, self.serializer_class, token, GlobalEvent, self.kwargs['pk'])
 
 
-def patch(self, request, *args, **kwargs):
-    token = get_token_auth_header(request)
-    serialized = GlobalEventSerializer(data=request.data)
-
-
 class TRPBadgeList(generics.ListCreateAPIView):
     http_method_names = ['get', 'post']
     queryset = TRPBadge.objects.all()
@@ -144,7 +136,9 @@ class TRPBadgeDetail(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = TRPBadgeSerializer
 
     def patch(self, request, *args, **kwargs):
-        pass
+        token = get_token_auth_header(request)
+        serialized = GlobalEventSerializer(data=request.data)
+        return change(request, self.serializer_class, token, GlobalEvent, self.kwargs['pk'])
 
 
 class NationalPartList(generics.ListCreateAPIView):
@@ -163,6 +157,11 @@ class NationalPartDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = NationalPart.objects.all()
     serializer_class = NationalPartSerializer
 
+    def patch(self, request, *args, **kwargs):
+        token = get_token_auth_header(request)
+        serialized = GlobalEventSerializer(data=request.data)
+        return change(request, self.serializer_class, token, GlobalEvent, self.kwargs['pk'])
+
 
 class NotNationalPartList(generics.ListCreateAPIView):
     http_method_names = ['get', 'post']
@@ -180,11 +179,15 @@ class NotNationalPartDetail(generics.ListCreateAPIView):
     queryset = NotNationalPart.objects.all()
     serializer_class = NotNationalPartSerializer
 
-
 class OnlineDetail(generics.RetrieveUpdateDestroyAPIView):
     http_method_names = ['get', 'patch', 'delete']
     queryset = Online.objects.all()
     serializer_class = OnlineSerializer
+
+    def patch(self, request, *args, **kwargs):
+        token = get_token_auth_header(request)
+        serialized = GlobalEventSerializer(data=request.data)
+        return change(request, self.serializer_class, token, GlobalEvent, self.kwargs['pk'])
 
 
 class OnlineList(generics.ListCreateAPIView):
