@@ -29,13 +29,13 @@ def age_group_validator(age_group):
 
 class GlobalEvent(models.Model):
     requestID = models.CharField(max_length=64, default=0)
-    userID = models.CharField(max_length=64, blank=False)
+    userID = models.CharField(max_length=64, null=True)
     name = models.CharField(max_length=200)
     level = models.CharField(max_length=30, validators=[level_validator])
     degree = models.CharField(max_length=30, validators=[degree_validator])
     place = models.IntegerField()
     date = models.DateField()
-    points = models.IntegerField()
+    points = models.IntegerField(blank=True, null=True)
 
 
 class TRPBadge(models.Model):
