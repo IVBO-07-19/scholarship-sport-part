@@ -122,6 +122,10 @@ class GlobalEventDetail(generics.RetrieveUpdateDestroyAPIView):
         return change(request, self.serializer_class, token, GlobalEvent, self.kwargs['pk'])
 
 
+def patch(self, request, *args, **kwargs):
+    token = get_token_auth_header(request)
+    serialized = GlobalEventSerializer(data=request.data)
+
 
 class TRPBadgeList(generics.ListCreateAPIView):
     http_method_names = ['get', 'post']
@@ -129,11 +133,9 @@ class TRPBadgeList(generics.ListCreateAPIView):
     serializer_class = TRPBadgeSerializer
 
     def post(self, request, *args, **kwargs):
-        user_id = jwt_decode_token(get_token_auth_header(request)).get('sub')
-        data = GlobalEventSerializer(request.data).data
-        request_id = data.get('request_id')
-
-        return JsonResponse(request_id, safe=False)
+        token = get_token_auth_header(request)
+        serialized = GlobalEventSerializer(data=request.data)
+        return add(serialized, token, TRPBadgeList)
 
 
 class TRPBadgeDetail(generics.RetrieveUpdateDestroyAPIView):
@@ -151,10 +153,9 @@ class NationalPartList(generics.ListCreateAPIView):
     serializer_class = NationalPartSerializer
 
     def post(self, request, *args, **kwargs):
-        user_id = jwt_decode_token(get_token_auth_header(request)).get('sub')
-        data = GlobalEventSerializer(request.data).data
-        request_id = data.get('request_id')
-        return JsonResponse(request_id, safe=False)
+        token = get_token_auth_header(request)
+        serialized = GlobalEventSerializer(data=request.data)
+        return add(serialized, token, NationalPartList)
 
 
 class NationalPartDetail(generics.RetrieveUpdateDestroyAPIView):
@@ -169,17 +170,16 @@ class NotNationalPartList(generics.ListCreateAPIView):
     serializer_class = NotNationalPartSerializer
 
     def post(self, request, *args, **kwargs):
-        user_id = jwt_decode_token(get_token_auth_header(request)).get('sub')
-        data = GlobalEventSerializer(request.data).data
-        request_id = data.get('request_id')
-
-        return JsonResponse(request_id, safe=False)
+        token = get_token_auth_header(request)
+        serialized = GlobalEventSerializer(data=request.data)
+        return add(serialized, token, NotNationalPartList)
 
 
 class NotNationalPartDetail(generics.ListCreateAPIView):
-    http_method_names = ['get', 'post']
+    http_method_names = ['get', 'patch', 'delete']
     queryset = NotNationalPart.objects.all()
     serializer_class = NotNationalPartSerializer
+
 
 class OnlineDetail(generics.RetrieveUpdateDestroyAPIView):
     http_method_names = ['get', 'patch', 'delete']
@@ -188,13 +188,11 @@ class OnlineDetail(generics.RetrieveUpdateDestroyAPIView):
 
 
 class OnlineList(generics.ListCreateAPIView):
-    http_method_names = ['get', 'patch', 'delete']
+    http_method_names = ['get', 'post']
     queryset = Online.objects.all()
     serializer_class = OnlineSerializer
 
     def post(self, request, *args, **kwargs):
-        user_id = jwt_decode_token(get_token_auth_header(request)).get('sub')
-        data = GlobalEventSerializer(request.data).data
-        request_id = data.get('request_id')
-
-        return JsonResponse(request_id, safe=False)
+        token = get_token_auth_header(request)
+        serialized = GlobalEventSerializer(data=request.data)
+        return add(serialized, token, OnlineList)

@@ -65,3 +65,9 @@ class OnlineSerializer(serializers.ModelSerializer):
         model = Online
         fields = '__all__'
 
+    def to_object(self):
+        request_id = self.data.get('requestID')
+        name = self.data.get('name')
+        date = self.data.get('date')
+        points = self.data.get('points')
+        return GlobalEvent(requestID=request_id, name=name, date=date, points=points)
