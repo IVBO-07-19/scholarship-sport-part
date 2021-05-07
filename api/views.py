@@ -179,6 +179,12 @@ class NotNationalPartDetail(generics.ListCreateAPIView):
     queryset = NotNationalPart.objects.all()
     serializer_class = NotNationalPartSerializer
 
+    def patch(self, request, *args, **kwargs):
+        token = get_token_auth_header(request)
+        serialized = GlobalEventSerializer(data=request.data)
+        return change(request, self.serializer_class, token, GlobalEvent, self.kwargs['pk'])
+
+
 class OnlineDetail(generics.RetrieveUpdateDestroyAPIView):
     http_method_names = ['get', 'patch', 'delete']
     queryset = Online.objects.all()
