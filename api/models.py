@@ -26,6 +26,13 @@ def age_group_validator(age_group):
             params={"age_group": age_group},
         )
 
+def place_validator(place):
+    if place < 1:
+        raise ValidationError(
+            f"Place must be greater than 0!",
+            params={"place": place},
+        )
+
 
 class GlobalEvent(models.Model):
     requestID = models.CharField(max_length=64, default=0)
@@ -33,9 +40,11 @@ class GlobalEvent(models.Model):
     name = models.CharField(max_length=200)
     level = models.CharField(max_length=30, validators=[level_validator])
     degree = models.CharField(max_length=30, validators=[degree_validator])
-    place = models.IntegerField()
+    place = models.IntegerField(validators=[place_validator])
     date = models.DateField()
     points = models.IntegerField(blank=True, null=True)
+
+
 
 
 class TRPBadge(models.Model):

@@ -49,26 +49,29 @@ def permission_allowed(head, userID, permission):
 def change(request, serializer, token, type, id):
     user_id = jwt_decode_token(token).get('sub')
     data = serializer(data=request.data).initial_data
-    request_id = data.get('requestID')
+    record = type.objects.get(pk=id)
+    request_id = record.requestID
     head = {'Authorization': f'Bearer {token}'}
-
     req_info = requests.get(url=service_URL + f'application/get/{request_id}/', headers=head).json()
     if req_info == 'Application does not exist':
         return HttpResponse('Application does not exist', status=status.HTTP_400_BAD_REQUEST)
     req_ready = req_info.get('readystatus').get('status')
     if req_ready:
-        return JsonResponse("Application is ready", safe=False)
-
+        return HttpResponse("Application is ready", status=status.HTTP_400_BAD_REQUEST)
     if permission_allowed(head, user_id, 'student'):
         if data.keys().__contains__('points'):
+            data = data.copy()
             data.pop('points')
-        record = type.objects.filter(id=id).update(data)
-        return JsonResponse('Changed',safe=False)
+        for fld in data.keys():
+            setattr(record,fld,data.get(fld))
+        record.save()
     elif permission_allowed(head, user_id, 'director'):
-        record = type.objects.filter(id=id)
-        record.update(points=data.get('points'))
-        return JsonResponse("Changed", safe=False)
-    return HttpResponse('Permission denied',status=status.HTTP_400_BAD_REQUEST)
+        record.points = data.get('points')
+        record.save()
+    ser_data = serializer(data=record.__dict__)
+    if ser_data.is_valid():
+        return JsonResponse(ser_data.data, safe=False)
+    return HttpResponse("Permission denied", status=status.HTTP_403_FORBIDDEN)
 
 
 # --- POST --- #
