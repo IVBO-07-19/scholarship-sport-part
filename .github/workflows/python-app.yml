@@ -17,9 +17,7 @@ jobs:
      postgres:
         image: postgres:12
         env:
-          POSTGRES_USER: root
-          POSTGRES_PASSWORD: secret
-          POSTGRES_DB: simple_bank
+          DATABASE_URL: postgres://postgres:postgres@localhost:5432/postgres
         ports:
           - 5432:5432
         options: >-
