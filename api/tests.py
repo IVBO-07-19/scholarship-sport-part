@@ -3,7 +3,22 @@ import requests
 from django.apps import apps
 from . import views
 import json
-from django.test import SimpleTestCase
+from datetime import datetime
+
+from django.test import TestCase
+
+from .models import GlobalEvent
+
+
+def get_access_token():
+    r = requests.post('https://suroegin503.eu.auth0.com/oauth/token', data={
+        'grant_type': 'password',
+        'username': 'testingemail@gmail.com',
+        'password': 'TestPassword1_',
+        'scope': 'openid profile email',
+        'audience': 'https://welcome/',
+        'client_id': 'PdkS09Ig0EYVGK9KPYwncjKMGzXnAasI'})
+    return r.json()['access_token']
 
 
 class Test(TestCase):
