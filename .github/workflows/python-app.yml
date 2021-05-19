@@ -13,6 +13,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     env:
+      GITHUB_ACTIONS: true
       DJANGO_SETTINGS_MODULE: djangoProject.settings
     services:
       ostgres: # we need a postgres docker image to be booted a side car service to run the tests that needs a db
