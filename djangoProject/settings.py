@@ -94,20 +94,33 @@ WSGI_APPLICATION = 'djangoProject.wsgi.application'
 #         }
 #     }
 # else:
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'SportDB',
-        'USER': 'postgres',
-        'PASSWORD': 'adminka',
-        'HOST': '127.0.0.1',
-        'PORT': '5432'
-    }
-}
 
-if os.environ.get('DATABASE_URL'):
-    db_from_env = dj_database_url.config()
-    DATABASES['default'].update(db_from_env)
+if os.getenv('GITHUB_WORKFLOW'):
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': 'github-actions',
+            'USER': 'postgres',
+            'PASSWORD': 'postgres',
+            'HOST': 'localhost',
+            'PORT': '5432'
+        }
+    }
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql_psycopg2',
+            'NAME': 'SportDB',
+            'USER': 'postgres',
+            'PASSWORD': 'adminka',
+            'HOST': '127.0.0.1',
+            'PORT': '5432'
+        }
+    }
+
+    if os.environ.get('DATABASE_URL'):
+        db_from_env = dj_database_url.config()
+        DATABASES['default'].update(db_from_env)
 
 print(DATABASES['default'])
 # Password validation
