@@ -96,12 +96,12 @@ WSGI_APPLICATION = 'djangoProject.wsgi.application'
 # else:
 DATABASES = {
     'default': {
-        # 'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        # 'NAME': 'SportDB',
-        # 'USER': 'postgres',
-        # 'PASSWORD': 'adminka',
-        # 'HOST': '127.0.0.1',
-        # 'PORT': '5432'
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'SportDB',
+        'USER': 'postgres',
+        'PASSWORD': 'adminka',
+        'HOST': '127.0.0.1',
+        'PORT': '5432'
     }
 }
 
