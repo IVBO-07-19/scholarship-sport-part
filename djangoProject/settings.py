@@ -95,7 +95,7 @@ WSGI_APPLICATION = 'djangoProject.wsgi.application'
 #     }
 # else:
 
-if sys.argv[1] == 'test':
+if os.getenv('GITHUB_WORKFLOW'):
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.postgresql',
