@@ -54,10 +54,10 @@ def change(request, serializer, token, type, id):
     head = {'Authorization': f'Bearer {token}'}
     req_info = requests.get(url=service_URL + f'application/get/{request_id}/', headers=head).json()
     if req_info == 'Application does not exist':
-        return HttpResponse('Application does not exist', status=status.HTTP_400_BAD_REQUEST)
+        return JsonResponse('Application does not exist', status=status.HTTP_400_BAD_REQUEST,safe=False)
     req_ready = req_info.get('readystatus').get('status')
     if req_ready:
-        return HttpResponse("Application is ready", status=status.HTTP_400_BAD_REQUEST)
+        return JsonResponse("Application is ready", status=status.HTTP_400_BAD_REQUEST,safe=False)
     if permission_allowed(head, user_id, 'student'):
         if data.keys().__contains__('points'):
             data = data.copy()
@@ -71,7 +71,7 @@ def change(request, serializer, token, type, id):
     ser_data = serializer(data=record.__dict__)
     if ser_data.is_valid():
         return JsonResponse(ser_data.data, safe=False)
-    return HttpResponse("Permission denied", status=status.HTTP_403_FORBIDDEN)
+    return JsonResponse("Permission denied", status=status.HTTP_403_FORBIDDEN,safe=False)
 
 
 # --- POST --- #
@@ -84,20 +84,20 @@ def add(serialized, token, type):
         # Check request
         req_info = requests.get(url=service_URL + f'application/get/{request_id}/', headers=head).json()
         if req_info == 'Application does not exist':
-            return HttpResponse('Application does not exist', status=status.HTTP_400_BAD_REQUEST)
+            return JsonResponse('Application does not exist', status=status.HTTP_400_BAD_REQUEST,safe=False)
         req_ready = req_info.get('readystatus').get('status')
         if req_ready:
             return JsonResponse("Application is ready", safe=False)
 
         # Check user
         if not permission_allowed(head, user_id, 'student'):
-            return HttpResponse("Permission denied!", status=status.HTTP_400_BAD_REQUEST)
+            return JsonResponse("Permission denied!", status=status.HTTP_403_FORBIDDEN,safe=False)
 
         obj = serialized.to_object()
         obj.userID = user_id
         obj.points = 0
         obj.save()
-    return JsonResponse(serialized.errors, safe=False)
+    return JsonResponse(serialized.errors,status=status.HTTP_400_BAD_REQUEST, safe=False)
 
 
 class GlobalEventList(generics.ListCreateAPIView):
