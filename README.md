@@ -25,7 +25,7 @@ DELETE response - None
 > * level - [String] - уровень мероприятия (международное, всеросийское, ведомственное, региональное)  
 > * degree - [String] - степень участия (индивидуальное, командное)
 > * place - [Integer] - занятое место
-> * date - [DateTime] - дата мероприятия (дд.мм.гггг)
+> * date - [DateTime] - дата мероприятия (гггг-мм-дд)
 > * points - [Integer] - количество очков за мероприятие
 
 URL: https://young-basin-37598.herokuapp.com/api/sport/global_event/
@@ -44,7 +44,7 @@ URL: https://young-basin-37598.herokuapp.com/api/sport/trp/
 > * name - [String] - название мероприятия   
 > * degree - [String] - степень участия (индивидуальное, командное)
 > * place - [Integer] - занятое место
-> * date - [DateTime] - дата мероприятия (дд.мм.гггг)
+> * date - [DateTime] - дата мероприятия (гггг-мм-дд)
 > * points - [Integer] - количество очков за мероприятие
 
 URL: https://young-basin-37598.herokuapp.com/api/sport/national/
@@ -55,7 +55,7 @@ URL: https://young-basin-37598.herokuapp.com/api/sport/national/
 > * level - [String] - уровень мероприятия (международное, всеросийское, ведомственное, региональное)  
 > * degree - [String] - степень участия (индивидуальное, командное)
 > * place - [Integer] - занятое место
-> * date - [DateTime] - дата мероприятия (дд.мм.гггг)
+> * date - [DateTime] - дата мероприятия (гггг-мм-дд)
 > * points - [Integer] - количество очков за мероприятие
 
 URL: https://young-basin-37598.herokuapp.com/api/sport/not_national/
@@ -63,7 +63,7 @@ URL: https://young-basin-37598.herokuapp.com/api/sport/not_national/
 * #### online_event - Приложение №5, таблица 3.3
 > * userID - [String] - идентификатор пользователя
 > * name - [String] - название мероприятия  
-> * date - [DateTime] - дата мероприятия (дд.мм.гггг)
+> * date - [DateTime] - дата мероприятия (гггг-мм-дд)
 > * points - [Integer] - количество очков за мероприятие
  
 URL: https://young-basin-37598.herokuapp.com/api/sport/online_event/
