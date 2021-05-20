@@ -53,29 +53,28 @@ def change(request, serializer, token, type, id):
     request_id = record.requestID
     head = {'Authorization': f'Bearer {token}'}
     req_info = requests.get(url=service_URL + f'application/get/{request_id}/', headers=head).json()
-    if req_info == 'Application does not exist':
-        return JsonResponse(get_update_details('not_exist'), status=status.HTTP_200_OK,safe=False)
-    req_ready = req_info.get('readystatus').get('status')
-    if req_ready:
-        return JsonResponse(get_update_details('is_ready'), status=status.HTTP_200_OK,safe=False)
-    if permission_allowed(head, user_id, 'student'):
+    # if req_info == 'Application does not exist':
+    #     return JsonResponse(get_update_details('not_exist'), status=status.HTTP_200_OK,safe=False)
+    # req_ready = req_info.get('readystatus').get('status')
+    # if req_ready:
+    #     return JsonResponse(get_update_details('is_ready'), status=status.HTTP_200_OK,safe=False)
+    if permission_allowed(head, user_id, 'student') and record.userID == user_id:
         if data.keys().__contains__('points'):
             data = data.copy()
             data.pop('points')
         for fld in data.keys():
-            setattr(record,fld,data.get(fld))
-        record.save()
+            setattr(record, fld, data.get(fld))
     elif permission_allowed(head, user_id, 'director'):
         record.points = data.get('points')
-        record.save()
     ser_data = serializer(data=record.__dict__)
     if ser_data.is_valid():
+        record.save()
         return JsonResponse(ser_data.data, safe=False)
-    return JsonResponse(get_update_details('not_allowed'), status=status.HTTP_403_FORBIDDEN,safe=False)
+    return JsonResponse(get_update_details('not_allowed'), status=status.HTTP_403_FORBIDDEN, safe=False)
 
 
 # --- POST --- #
-def add(serialized, token, type):
+def add(serialized, token, serializer):
     if serialized.is_valid():
         user_id = jwt_decode_token(token).get('sub')
         data = serialized.data
@@ -83,21 +82,22 @@ def add(serialized, token, type):
         head = {'Authorization': f'Bearer {token}'}
         # Check request
         req_info = requests.get(url=service_URL + f'application/get/{request_id}/', headers=head).json()
-        if req_info == 'Application does not exist':
-            return JsonResponse(get_update_details('not_exist'), status=status.HTTP_200_OK,safe=False)
-        req_ready = req_info.get('readystatus').get('status')
-        if req_ready:
-            return JsonResponse(get_update_details('is_ready'),status=status.HTTP_200_OK, safe=False)
+        # if req_info == 'Application does not exist':
+        #     return JsonResponse(get_update_details('not_exist'), status=status.HTTP_200_OK,safe=False)
+        # req_ready = req_info.get('readystatus').get('status')
+        # if req_ready:
+        #     return JsonResponse(get_update_details('is_ready'),status=status.HTTP_200_OK, safe=False)
 
         # Check user
         if not permission_allowed(head, user_id, 'student'):
-            return JsonResponse(get_update_details('not_allowed'), status=status.HTTP_403_FORBIDDEN,safe=False)
+            return JsonResponse(get_update_details('not_allowed'), status=status.HTTP_403_FORBIDDEN, safe=False)
 
         obj = serialized.to_object()
         obj.userID = user_id
         obj.points = 0
         obj.save()
-    return JsonResponse(serialized.errors,status=status.HTTP_400_BAD_REQUEST, safe=False)
+        return JsonResponse(serializer(obj).data, status=status.HTTP_201_CREATED, safe=False)
+    return JsonResponse(serialized.errors, status=status.HTTP_400_BAD_REQUEST, safe=False)
 
 
 class GlobalEventList(generics.ListCreateAPIView):
@@ -108,7 +108,7 @@ class GlobalEventList(generics.ListCreateAPIView):
     def post(self, request, *args, **kwargs):
         token = get_token_auth_header(request)
         serialized = GlobalEventSerializer(data=request.data)
-        return add(serialized, token, GlobalEvent)
+        return add(serialized, token, GlobalEventSerializer)
 
 
 class GlobalEventDetail(generics.RetrieveUpdateDestroyAPIView):
