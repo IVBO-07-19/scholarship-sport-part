@@ -53,11 +53,11 @@ def change(request, serializer, token, type, id):
     request_id = record.requestID
     head = {'Authorization': f'Bearer {token}'}
     req_info = requests.get(url=service_URL + f'application/get/{request_id}/', headers=head).json()
-    # if req_info == 'Application does not exist':
-    #     return JsonResponse(get_update_details('not_exist'), status=status.HTTP_200_OK,safe=False)
-    # req_ready = req_info.get('readystatus').get('status')
-    # if req_ready:
-    #     return JsonResponse(get_update_details('is_ready'), status=status.HTTP_200_OK,safe=False)
+    if req_info == 'Application does not exist':
+        return JsonResponse(get_update_details('not_exist'), status=status.HTTP_200_OK,safe=False)
+    req_ready = req_info.get('readystatus').get('status')
+    if req_ready:
+        return JsonResponse(get_update_details('is_ready'), status=status.HTTP_200_OK,safe=False)
     if permission_allowed(head, user_id, 'student') and record.userID == user_id:
         if data.keys().__contains__('points'):
             data = data.copy()
@@ -82,11 +82,11 @@ def add(serialized, token, serializer):
         head = {'Authorization': f'Bearer {token}'}
         # Check request
         req_info = requests.get(url=service_URL + f'application/get/{request_id}/', headers=head).json()
-        # if req_info == 'Application does not exist':
-        #     return JsonResponse(get_update_details('not_exist'), status=status.HTTP_200_OK,safe=False)
-        # req_ready = req_info.get('readystatus').get('status')
-        # if req_ready:
-        #     return JsonResponse(get_update_details('is_ready'),status=status.HTTP_200_OK, safe=False)
+        if req_info == 'Application does not exist':
+            return JsonResponse(get_update_details('not_exist'), status=status.HTTP_200_OK,safe=False)
+        req_ready = req_info.get('readystatus').get('status')
+        if req_ready:
+            return JsonResponse(get_update_details('is_ready'),status=status.HTTP_200_OK, safe=False)
 
         # Check user
         if not permission_allowed(head, user_id, 'student'):
