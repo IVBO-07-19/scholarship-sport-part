@@ -1,6 +1,6 @@
 # Scholarship project. Sport part
 
-[![Python application](https://github.com/IVBO-07-19/scholarship-sport-part/actions/workflows/python-app.yml/badge.svg)](https://github.com/IVBO-07-19/scholarship-sport-part/actions/workflows/python-app.yml)
+[![Python sport application](https://github.com/IVBO-07-19/scholarship-sport-part/actions/workflows/python-app.yml/badge.svg)](https://github.com/IVBO-07-19/scholarship-sport-part/actions/workflows/python-app.yml)
 
 ## Heroku-service
 * https://young-basin-37598.herokuapp.com
