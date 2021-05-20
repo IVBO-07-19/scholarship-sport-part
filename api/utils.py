@@ -8,6 +8,16 @@ import requests
 
 dotenv.read_dotenv()
 
+
+def get_update_details(error):
+    types = {
+        'not_exist': 'Application does not exist!',
+        'is_ready': 'Application is ready',
+        'not_allowed':'Permission denied'
+    }
+    return {'detail':types.get(error)}
+
+
 def jwt_get_username_from_payload_handler(payload):
     username = payload.get('sub').replace('|', '.')
     authenticate(remote_user=username)
@@ -27,5 +37,3 @@ def jwt_decode_token(token):
 
     issuer = 'https://{}/'.format(os.environ.get('JWT_ISSUER'))
     return jwt.decode(token, public_key, audience=os.environ.get('JWT_AUDIENCE'), issuer=issuer, algorithms=['RS256'])
-
-

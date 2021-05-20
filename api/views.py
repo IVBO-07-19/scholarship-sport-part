@@ -54,10 +54,10 @@ def change(request, serializer, token, type, id):
     head = {'Authorization': f'Bearer {token}'}
     req_info = requests.get(url=service_URL + f'application/get/{request_id}/', headers=head).json()
     if req_info == 'Application does not exist':
-        return JsonResponse('Application does not exist', status=status.HTTP_400_BAD_REQUEST,safe=False)
+        return JsonResponse(get_update_details('not_exist'), status=status.HTTP_200_OK,safe=False)
     req_ready = req_info.get('readystatus').get('status')
     if req_ready:
-        return JsonResponse("Application is ready", status=status.HTTP_400_BAD_REQUEST,safe=False)
+        return JsonResponse(get_update_details('is_ready'), status=status.HTTP_200_OK,safe=False)
     if permission_allowed(head, user_id, 'student'):
         if data.keys().__contains__('points'):
             data = data.copy()
@@ -71,7 +71,7 @@ def change(request, serializer, token, type, id):
     ser_data = serializer(data=record.__dict__)
     if ser_data.is_valid():
         return JsonResponse(ser_data.data, safe=False)
-    return JsonResponse("Permission denied", status=status.HTTP_403_FORBIDDEN,safe=False)
+    return JsonResponse(get_update_details('not_allowed'), status=status.HTTP_403_FORBIDDEN,safe=False)
 
 
 # --- POST --- #
@@ -84,14 +84,14 @@ def add(serialized, token, type):
         # Check request
         req_info = requests.get(url=service_URL + f'application/get/{request_id}/', headers=head).json()
         if req_info == 'Application does not exist':
-            return JsonResponse('Application does not exist', status=status.HTTP_400_BAD_REQUEST,safe=False)
+            return JsonResponse(get_update_details('not_exist'), status=status.HTTP_200_OK,safe=False)
         req_ready = req_info.get('readystatus').get('status')
         if req_ready:
-            return JsonResponse("Application is ready", safe=False)
+            return JsonResponse(get_update_details('is_ready'),status=status.HTTP_200_OK, safe=False)
 
         # Check user
         if not permission_allowed(head, user_id, 'student'):
-            return JsonResponse("Permission denied!", status=status.HTTP_403_FORBIDDEN,safe=False)
+            return JsonResponse(get_update_details('not_allowed'), status=status.HTTP_403_FORBIDDEN,safe=False)
 
         obj = serialized.to_object()
         obj.userID = user_id

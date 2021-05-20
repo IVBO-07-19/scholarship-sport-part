@@ -30,7 +30,7 @@ class Test(TestCase):
         GlobalEvent.objects.create(userID=1, name="Футбол", level="Международное", degree="индивидуальное", place=1,
                                    date=datetime.now(), points=3)
 
-    def test_not_authorized(self):
+    def test_authorized(self):
         response = self.client.get("/api/sport/global_event/")
         assert response.status_code == 401 or response.status_code == 403
 
