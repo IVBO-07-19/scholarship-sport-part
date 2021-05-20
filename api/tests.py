@@ -32,7 +32,7 @@ class Test(TestCase):
 
     def test_authorized(self):
         response = self.client.get("/api/sport/global_event/")
-        assert response.status_code == 401 or response.status_code == 403
+        assert response.status_code != 401 and response.status_code != 403
 
     def test_create_global_event(self):
         data = {
