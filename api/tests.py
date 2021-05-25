@@ -67,3 +67,9 @@ class Test(TestCase):
         })
         assert response.status_code / 100 == 4
 
+    def test_get_by_request_id(self):
+        response = self.client.get("/api/sport/request/1")
+        assert response.status_code == 200
+        data = response.body
+        assert data is dict
+        assert data.keys() == ('1', '2', '3.1', '3.2', '3.3')

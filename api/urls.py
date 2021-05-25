@@ -18,6 +18,8 @@ urlpatterns = [
     path('online_event/', OnlineList.as_view()),
     path('online_event/<int:pk>', OnlineDetail.as_view()),
 
+    path('request/<int:id>',RequestList.as_view())
+
 
 ]
 

@@ -1,3 +1,5 @@
+from rest_framework.views import APIView
+
 from .serializers import *
 from .models import *
 from rest_framework import generics, status
@@ -54,10 +56,10 @@ def change(request, serializer, token, type, id):
     head = {'Authorization': f'Bearer {token}'}
     req_info = requests.get(url=service_URL + f'application/get/{request_id}/', headers=head).json()
     if req_info == 'Application does not exist':
-        return JsonResponse(get_update_details('not_exist'), status=status.HTTP_200_OK,safe=False)
+        return JsonResponse(get_update_details('not_exist'), status=status.HTTP_200_OK, safe=False)
     req_ready = req_info.get('readystatus').get('status')
     if req_ready:
-        return JsonResponse(get_update_details('is_ready'), status=status.HTTP_200_OK,safe=False)
+        return JsonResponse(get_update_details('is_ready'), status=status.HTTP_200_OK, safe=False)
     if permission_allowed(head, user_id, 'student') and record.userID == user_id:
         if data.keys().__contains__('points'):
             data = data.copy()
@@ -83,10 +85,10 @@ def add(serialized, token, serializer):
         # Check request
         req_info = requests.get(url=service_URL + f'application/get/{request_id}/', headers=head).json()
         if req_info == 'Application does not exist':
-            return JsonResponse(get_update_details('not_exist'), status=status.HTTP_200_OK,safe=False)
+            return JsonResponse(get_update_details('not_exist'), status=status.HTTP_200_OK, safe=False)
         req_ready = req_info.get('readystatus').get('status')
         if req_ready:
-            return JsonResponse(get_update_details('is_ready'),status=status.HTTP_200_OK, safe=False)
+            return JsonResponse(get_update_details('is_ready'), status=status.HTTP_200_OK, safe=False)
 
         # Check user
         if not permission_allowed(head, user_id, 'student'):
@@ -208,3 +210,23 @@ class OnlineList(generics.ListCreateAPIView):
         token = get_token_auth_header(request)
         serialized = GlobalEventSerializer(data=request.data)
         return add(serialized, token, OnlineList)
+
+
+class RequestList(APIView):
+    def get(self, request, *args, **kwargs):
+        request_id = self.kwargs['id']
+        global_events = GlobalEvent.objects.filter(requestID=request_id).values('name', 'level', 'degree', 'place',
+                                                                                'date', 'points')
+        trp_badges = TRPBadge.objects.filter(requestID=request_id).values('trp_badge', 'date', 'age_group', 'points')
+        national_part = NationalPart.objects.filter(requestID=request_id).values('name', 'degree', 'date', 'points')
+        not_national_part = NotNationalPart.objects.filter(requestID=request_id).values('name', 'level', 'degree',
+                                                                                        'date', 'points')
+        online = Online.objects.filter(requestID=request_id).values('name', 'date', 'points')
+        response = {
+            '1': list(global_events),
+            '2': list(trp_badges),
+            '3.1': list(national_part),
+            '3.2': list(not_national_part),
+            '3.3': list(online)
+        }
+        return JsonResponse(response, safe=False)
