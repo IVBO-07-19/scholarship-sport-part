@@ -49,38 +49,38 @@ class GlobalEvent(models.Model):
 
 class TRPBadge(models.Model):
     requestID = models.CharField(max_length=64, default=0)
-    userID = models.CharField(max_length=64, blank=False)
+    userID = models.CharField(max_length=64, null=True)
     trp_badge = models.BooleanField()
     date = models.DateField()
     age_group = models.IntegerField(validators=[age_group_validator])
-    points = models.IntegerField()
+    points = models.IntegerField(null=True)
 
 
 class NationalPart(models.Model):
     requestID = models.CharField(max_length=64, default=0)
-    userID = models.CharField(max_length=64, blank=False)
+    userID = models.CharField(max_length=64, null=True)
     name = models.CharField(max_length=200)
     degree = models.CharField(max_length=30, validators=[degree_validator])
     date = models.DateField()
-    points = models.IntegerField()
+    points = models.IntegerField(null=True)
 
 
 class NotNationalPart(models.Model):
     requestID = models.CharField(max_length=64, default=0)
-    userID = models.CharField(max_length=64, blank=False)
+    userID = models.CharField(max_length=64, null=True)
     name = models.CharField(max_length=200)
     level = models.CharField(max_length=30, validators=[level_validator])
     degree = models.CharField(max_length=30,validators=[degree_validator])
     date = models.DateField()
-    points = models.IntegerField()
+    points = models.IntegerField(null=True)
 
 
 class Online(models.Model):
     requestID = models.CharField(max_length=64, default=0)
-    userID = models.CharField(max_length=64, blank=False)
+    userID = models.CharField(max_length=64, null=True)
     name = models.CharField(max_length=200)
     date = models.DateField()
-    points = models.IntegerField()
+    points = models.IntegerField(null=True)
 
 
 

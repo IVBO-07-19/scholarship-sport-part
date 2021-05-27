@@ -74,7 +74,6 @@ def change(request, serializer, token, type, id):
         return JsonResponse(ser_data.data, safe=False)
     return JsonResponse(get_update_details('not_allowed'), status=status.HTTP_403_FORBIDDEN, safe=False)
 
-#auth0|60929cb4ba2d49006a7b9f9e
 # --- POST --- #
 def add(serialized, token, serializer):
     if serialized.is_valid():
@@ -83,9 +82,11 @@ def add(serialized, token, serializer):
         request_id = data.get('requestID')
         head = {'Authorization': f'Bearer {token}'}
         # Check request
+        print(service_URL + f'application/get/{request_id}/')
         req_info = requests.get(url=service_URL + f'application/get/{request_id}/', headers=head).json()
         if req_info == 'Application does not exist':
             return JsonResponse(get_update_details('not_exist'), status=status.HTTP_200_OK, safe=False)
+
         req_ready = req_info.get('readystatus').get('status')
         if not req_ready:
             return JsonResponse(get_update_details('is_ready'), status=status.HTTP_200_OK, safe=False)
@@ -131,8 +132,8 @@ class TRPBadgeList(generics.ListCreateAPIView):
 
     def post(self, request, *args, **kwargs):
         token = get_token_auth_header(request)
-        serialized = GlobalEventSerializer(data=request.data)
-        return add(serialized, token, TRPBadgeList)
+        serialized = TRPBadgeSerializer(data=request.data)
+        return add(serialized, token, TRPBadgeSerializer)
 
 
 class TRPBadgeDetail(generics.RetrieveUpdateDestroyAPIView):
@@ -142,7 +143,7 @@ class TRPBadgeDetail(generics.RetrieveUpdateDestroyAPIView):
 
     def patch(self, request, *args, **kwargs):
         token = get_token_auth_header(request)
-        serialized = GlobalEventSerializer(data=request.data)
+        serialized = TRPBadgeSerializer(data=request.data)
         return change(request, self.serializer_class, token, GlobalEvent, self.kwargs['pk'])
 
 
@@ -153,8 +154,8 @@ class NationalPartList(generics.ListCreateAPIView):
 
     def post(self, request, *args, **kwargs):
         token = get_token_auth_header(request)
-        serialized = GlobalEventSerializer(data=request.data)
-        return add(serialized, token, NationalPartList)
+        serialized = NationalPartSerializer(data=request.data)
+        return add(serialized, token, NationalPartSerializer)
 
 
 class NationalPartDetail(generics.RetrieveUpdateDestroyAPIView):
@@ -164,7 +165,7 @@ class NationalPartDetail(generics.RetrieveUpdateDestroyAPIView):
 
     def patch(self, request, *args, **kwargs):
         token = get_token_auth_header(request)
-        serialized = GlobalEventSerializer(data=request.data)
+        serialized = NationalPartSerializer(data=request.data)
         return change(request, self.serializer_class, token, GlobalEvent, self.kwargs['pk'])
 
 
@@ -175,8 +176,8 @@ class NotNationalPartList(generics.ListCreateAPIView):
 
     def post(self, request, *args, **kwargs):
         token = get_token_auth_header(request)
-        serialized = GlobalEventSerializer(data=request.data)
-        return add(serialized, token, NotNationalPartList)
+        serialized = NotNationalPartSerializer(data=request.data)
+        return add(serialized, token, NotNationalPartSerializer)
 
 
 class NotNationalPartDetail(generics.ListCreateAPIView):
@@ -186,7 +187,7 @@ class NotNationalPartDetail(generics.ListCreateAPIView):
 
     def patch(self, request, *args, **kwargs):
         token = get_token_auth_header(request)
-        serialized = GlobalEventSerializer(data=request.data)
+        serialized = NotNationalPartSerializer(data=request.data)
         return change(request, self.serializer_class, token, GlobalEvent, self.kwargs['pk'])
 
 
@@ -197,7 +198,7 @@ class OnlineDetail(generics.RetrieveUpdateDestroyAPIView):
 
     def patch(self, request, *args, **kwargs):
         token = get_token_auth_header(request)
-        serialized = GlobalEventSerializer(data=request.data)
+        serialized = OnlineSerializer(data=request.data)
         return change(request, self.serializer_class, token, GlobalEvent, self.kwargs['pk'])
 
 
@@ -208,8 +209,8 @@ class OnlineList(generics.ListCreateAPIView):
 
     def post(self, request, *args, **kwargs):
         token = get_token_auth_header(request)
-        serialized = GlobalEventSerializer(data=request.data)
-        return add(serialized, token, OnlineList)
+        serialized = OnlineSerializer(data=request.data)
+        return add(serialized, token, OnlineSerializer)
 
 
 class RequestList(APIView):

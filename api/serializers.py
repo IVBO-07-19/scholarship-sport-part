@@ -28,7 +28,7 @@ class TRPBadgeSerializer(serializers.ModelSerializer):
         age_group = self.data.get('age_group')
         points = self.data.get('points')
         date = self.data.get('date')
-        return GlobalEvent(requestID=request_id, trp_badge=trp_badge, age_group=age_group, points=points, date=date)
+        return TRPBadge(requestID=request_id, trp_badge=trp_badge, age_group=age_group, points=points, date=date)
 
 
 class NationalPartSerializer(serializers.ModelSerializer):
@@ -42,7 +42,7 @@ class NationalPartSerializer(serializers.ModelSerializer):
         degree = self.data.get('degree')
         points = self.data.get('points')
         date = self.data.get('date')
-        return GlobalEvent(requestID=request_id, name=name, degree=degree, points=points, date=date)
+        return NationalPart(requestID=request_id, name=name, degree=degree, points=points, date=date)
 
 
 class NotNationalPartSerializer(serializers.ModelSerializer):
@@ -57,7 +57,7 @@ class NotNationalPartSerializer(serializers.ModelSerializer):
         degree = self.data.get('degree')
         place = self.data.get('place')
         date = self.data.get('date')
-        return GlobalEvent(requestID=request_id, name=name, level=level, degree=degree, place=place, date=date)
+        return NotNationalPart(requestID=request_id, name=name, level=level, degree=degree, place=place, date=date)
 
 
 class OnlineSerializer(serializers.ModelSerializer):
@@ -70,4 +70,4 @@ class OnlineSerializer(serializers.ModelSerializer):
         name = self.data.get('name')
         date = self.data.get('date')
         points = self.data.get('points')
-        return GlobalEvent(requestID=request_id, name=name, date=date, points=points)
+        return Online(requestID=request_id, name=name, date=date, points=points)
