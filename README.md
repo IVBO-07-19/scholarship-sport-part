@@ -74,7 +74,10 @@ URL: https://young-basin-37598.herokuapp.com/api/sport/online_event/
 ###  Install PostgreSQL
 ### Create Postgres database
 * #### Coming soon
-### Configure database
+### Configure application
+    set JWT_AUDIENCE=<your_jwt_audience>
+    set JWT_ISSUER=<your_jwt_issuer>
+   
     set DATABASE_URL=<your_database_url>
 Example:  
 
