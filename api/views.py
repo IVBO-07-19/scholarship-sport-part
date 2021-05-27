@@ -40,7 +40,7 @@ def requires_scope(required_scope):
     return require_scope
 
 
-def permission_allowed(head, userID, permission):
+def permission_allowed(head, permission):
     user_roles = requests.get(url=service_URL + f'users/roles/', headers=head).json()
     allowed = False
     for role in user_roles:
@@ -58,15 +58,15 @@ def change(request, serializer, token, type, id):
     if req_info == 'Application does not exist':
         return JsonResponse(get_update_details('not_exist'), status=status.HTTP_200_OK, safe=False)
     req_ready = req_info.get('readystatus').get('status')
-    if req_ready:
+    if not req_ready:
         return JsonResponse(get_update_details('is_ready'), status=status.HTTP_200_OK, safe=False)
-    if permission_allowed(head, user_id, 'student') and record.userID == user_id:
+    if permission_allowed(head, 'student') and record.userID == user_id:
         if data.keys().__contains__('points'):
             data = data.copy()
             data.pop('points')
         for fld in data.keys():
             setattr(record, fld, data.get(fld))
-    elif permission_allowed(head, user_id, 'director'):
+    elif permission_allowed(head, 'director'):
         record.points = data.get('points')
     ser_data = serializer(data=record.__dict__)
     if ser_data.is_valid():
@@ -74,7 +74,7 @@ def change(request, serializer, token, type, id):
         return JsonResponse(ser_data.data, safe=False)
     return JsonResponse(get_update_details('not_allowed'), status=status.HTTP_403_FORBIDDEN, safe=False)
 
-
+#auth0|60929cb4ba2d49006a7b9f9e
 # --- POST --- #
 def add(serialized, token, serializer):
     if serialized.is_valid():
@@ -87,11 +87,11 @@ def add(serialized, token, serializer):
         if req_info == 'Application does not exist':
             return JsonResponse(get_update_details('not_exist'), status=status.HTTP_200_OK, safe=False)
         req_ready = req_info.get('readystatus').get('status')
-        if req_ready:
+        if not req_ready:
             return JsonResponse(get_update_details('is_ready'), status=status.HTTP_200_OK, safe=False)
 
         # Check user
-        if not permission_allowed(head, user_id, 'student'):
+        if not permission_allowed(head, 'student'):
             return JsonResponse(get_update_details('not_allowed'), status=status.HTTP_403_FORBIDDEN, safe=False)
 
         obj = serialized.to_object()
@@ -213,6 +213,8 @@ class OnlineList(generics.ListCreateAPIView):
 
 
 class RequestList(APIView):
+    http_method_names = ['get']
+
     def get(self, request, *args, **kwargs):
         request_id = self.kwargs['id']
         global_events = GlobalEvent.objects.filter(requestID=request_id).values('name', 'level', 'degree', 'place',
