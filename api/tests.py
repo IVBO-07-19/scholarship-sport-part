@@ -132,7 +132,7 @@ class Test(TestCase):
             "date":"2021-06-13",
             "points": 0
         }
-        response = self.client.post("/api/sport/national/", data)
+        response = self.client.post("/api/sport/not_national/", data)
         assert response.status_code / 100 == 4
 
 

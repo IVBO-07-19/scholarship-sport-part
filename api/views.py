@@ -82,7 +82,6 @@ def add(serialized, token, serializer):
         request_id = data.get('requestID')
         head = {'Authorization': f'Bearer {token}'}
         # Check request
-        print(service_URL + f'application/get/{request_id}/')
         req_info = requests.get(url=service_URL + f'application/get/{request_id}/', headers=head).json()
         if req_info == 'Application does not exist':
             return JsonResponse(get_update_details('not_exist'), status=status.HTTP_200_OK, safe=False)
