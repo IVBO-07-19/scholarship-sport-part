@@ -61,9 +61,97 @@ class Test(TestCase):
         response = self.client.get("/api/sport/global_event/")
         assert response.status_code == 200
 
+    # def test_get_global_events_by_id(self):
+    #     response = self.client.get(f"/api/sport/global_event/2/")
+    #     assert response.status_code == 200
+
+    def test_get_trp(self):
+        response = self.client.get("/api/sport/trp/")
+        assert response.status_code == 200
+
+    # def test_get_trp_by_id(self):
+    #     response = self.client.get("/api/sport/trp/1/")
+    #     assert response.status_code == 200
+
+    def test_create_trp_with_incorrect_age_group(self):
+        data={
+            "requestID": 794,
+            "userID": "ignore_this",
+            "trp_badge": True,
+            "date":"2021-06-13",
+            "age_group":"170",
+            "points": 20
+        }
+        response = self.client.post("/api/sport/trp/", data)
+        assert response.status_code / 100 == 4
+
+    def test_get_national(self):
+        response = self.client.get("/api/sport/national/")
+        assert response.status_code == 200
+
+    def test_create_national_with_incorrect_degree(self):
+        data={
+            "requestID": 794,
+            "userID":"ignore_this",
+            "name": "gggggg",
+            "degree": "aaaaaaaaaa",
+            "date":"2021-06-13",
+            "points": 0
+        }
+        response = self.client.post("/api/sport/national/", data)
+        assert response.status_code / 100 == 4
+
+    # def test_get_national_by_id(self):
+    #     response = self.client.get("/api/sport/national/2/")
+    #     assert response.status_code == 200
+
+    def test_get_not_national(self):
+        response = self.client.get("/api/sport/not_national/")
+        assert response.status_code == 200
+
+    def test_create_not_national_with_incorrect_degree(self):
+        data={
+            "requestID": 794,
+            "userID":"ignore_this",
+            "name": "gggggg",
+            "level":"региональное",
+            "degree": "aaaaaaaaaa",
+            "date":"2021-06-13",
+            "points": 0
+        }
+        response = self.client.post("/api/sport/national/", data)
+        assert response.status_code / 100 == 4
+
+    def test_create_not_national_with_incorrect_level(self):
+        data={
+            "requestID": 794,
+            "userID":"ignore_this",
+            "name": "gggggg",
+            "level":"раолцарпцдкп",
+            "degree": "индивидуальное",
+            "date":"2021-06-13",
+            "points": 0
+        }
+        response = self.client.post("/api/sport/national/", data)
+        assert response.status_code / 100 == 4
+
+
+    def test_get_online_event(self):
+        response = self.client.get("/api/sport/online_event/")
+        assert response.status_code == 200
+
+    # def test_get_online_event_by_id(self):
+    #     response = self.client.get("/api/sport/online_event/3/")
+    #     assert response.status_code == 200
+
+    def test_get_request(self):
+        response = self.client.get("/api/sport/request/10")
+        print(response.status_code)
+        assert response.status_code == 200
+
     def test_create_global_event_with_incorrect_place_returns_400(self):
         response = self.client.post("/api/sport/global_event/", data={
-            "requestID": 0,
+            "requestID": 794,
             "userID": "ignore_this",
             "name": "string",
             "level": "string",

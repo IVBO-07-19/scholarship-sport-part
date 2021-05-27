@@ -60,7 +60,7 @@ class NationalPart(models.Model):
     requestID = models.CharField(max_length=64, default=0)
     userID = models.CharField(max_length=64, blank=False)
     name = models.CharField(max_length=200)
-    degree = models.CharField(max_length=30)
+    degree = models.CharField(max_length=30, validators=[degree_validator])
     date = models.DateField()
     points = models.IntegerField()
 
